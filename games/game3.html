@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzl O'yini</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            background: #f0f8ff;
+        }
+        
+        #puzzle-container {
+            width: 300px;
+            height: 300px;
+            margin: 20px auto;
+            display: flex;
+            flex-wrap: wrap;
+            border: 2px solid #333;
+            position: relative;
+        }
+        
+        .puzzle-piece {
+            width: 100px;
+            height: 100px;
+            box-sizing: border-box;
+            background-size: 300px 300px;
+            border: 1px solid #ccc;
+        }
+        
+        button,
+        input[type="file"] {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        input[type="file"] {
+            padding: 6px;
+        }
+        
+        .exit-button {
+            padding: 10px 15px;
+            font-size: 18px;
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Puzl o'yini</h1>
+    <input type="file" id="imageUpload" accept="image/*">
+    <div id="puzzle-container"></div>
+    <button onclick="shufflePieces()">Qayta Aralashtirish</button>
+
+    <script>
+        const puzzleContainer = document.getElementById('puzzle-container');
+        const imageUpload = document.getElementById('imageUpload');
+        let imageUrl = 'puzzle.jpg'; // Default rasm
+
+        imageUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                imageUrl = URL.createObjectURL(file);
+                resetPuzzle();
+            }
+        });
+
+        function resetPuzzle() {
+            puzzleContainer.innerHTML = '';
+            createPuzzle();
+            shufflePieces();
+        }
+
+        function createPuzzle() {
+            for (let i = 0; i < 9; i++) {
+                const piece = document.createElement('div');
+                piece.classList.add('puzzle-piece');
+                piece.setAttribute('draggable', true);
+                piece.dataset.index = i;
+
+                const x = (i % 3) * -100;
+                const y = Math.floor(i / 3) * -100;
+                piece.style.backgroundImage = `url('${imageUrl}')`;
+                piece.style.backgroundPosition = `${x}px ${y}px`;
+
+                piece.addEventListener('dragstart', dragStart);
+                piece.addEventListener('dragover', dragOver);
+                piece.addEventListener('drop', dropPiece);
+
+                puzzleContainer.appendChild(piece);
+            }
+        }
+
+        let draggedPiece = null;
+
+        function dragStart(e) {
+            draggedPiece = e.target;
+        }
+
+        function dragOver(e) {
+            e.preventDefault();
+        }
+
+        function dropPiece(e) {
+            e.preventDefault();
+            if (e.target.classList.contains('puzzle-piece')) {
+                let draggedClone = draggedPiece.cloneNode(true);
+                let targetClone = e.target.cloneNode(true);
+
+                puzzleContainer.replaceChild(draggedClone, e.target);
+                puzzleContainer.replaceChild(targetClone, draggedPiece);
+
+                addEventListeners();
+            }
+        }
+
+        function shufflePieces() {
+            let pieces = Array.from(puzzleContainer.children);
+            pieces.sort(() => Math.random() - 0.5);
+            pieces.forEach(piece => puzzleContainer.appendChild(piece));
+        }
+
+        function addEventListeners() {
+            document.querySelectorAll('.puzzle-piece').forEach(piece => {
+                piece.addEventListener('dragstart', dragStart);
+                piece.addEventListener('dragover', dragOver);
+                piece.addEventListener('drop', dropPiece);
+            });
+        }
+
+        createPuzzle(); // Initial puzzle
+    </script>
+    <a href="../games.html" class="exit-button">Chiqish</a>
+
+</body>
+
+</html>

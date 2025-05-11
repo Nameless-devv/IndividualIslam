@@ -1,0 +1,74 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-image: url('../images/game2.jpg');
+    /* Orqa fon tasviri */
+    background-size: cover;
+    /* Tasvirni to'liq qoplash */
+    background-position: center;
+    /* Tasvirni markazga joylashtirish */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.9);
+    /* Oq fon, lekin yarim shaffof */
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    /* Soyani kuchaytirish */
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #00796b;
+}
+
+.color-box {
+    width: 100%;
+    height: 200px;
+    margin: 20px auto;
+    border: 2px solid #00796b;
+    border-radius: 10px;
+}
+
+.options {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.option,
+.btn,
+.exit-button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #00796b;
+    color: white;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.option:hover,
+.btn:hover,
+.exit-button:hover {
+    background-color: #004d40;
+    transform: scale(1.05);
+    /* Hover effekti */
+}
+
+#result {
+    margin-top: 10px;
+    font-size: 18px;
+}

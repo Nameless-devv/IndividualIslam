@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranglarni O'rganish</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        
+        #color-box {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+        }
+        
+        #options {
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .exit-button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #f44336;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Ranglarni O'rganish</h1>
+    <div id="color-box"></div>
+    <div id="options"></div>
+    <p id="result"></p>
+    <button id="next-button">Keyingi Rang</button>
+    <button class="exit-button" onclick="window.close()">Chiqish</button>
+
+    <script>
+        const colors = [{
+            name: 'qizil',
+            hex: '#ff0000'
+        }, {
+            name: 'yashil',
+            hex: '#00ff00'
+        }, {
+            name: 'ko\'k',
+            hex: '#0000ff'
+        }, {
+            name: 'sariq',
+            hex: '#ffff00'
+        }];
+
+        let currentColor;
+
+        function displayColor() {
+            const colorBox = document.getElementById('color-box');
+            const optionsDiv = document.getElementById('options');
+            const resultP = document.getElementById('result');
+
+            currentColor = colors[Math.floor(Math.random() * colors.length)];
+            colorBox.style.backgroundColor = currentColor.hex;
+
+            optionsDiv.innerHTML = '';
+            const randomColors = [...colors].sort(() => 0.5 - Math.random()).slice(0, 3);
+            if (!randomColors.find(color => color.name === currentColor.name)) {
+                randomColors[Math.floor(Math.random() * 3)] = currentColor;
+            }
+
+            randomColors.sort(() => 0.5 - Math.random()).forEach(color => {
+                const button = document.createElement('button');
+                button.textContent = color.name;
+                button.addEventListener('click', () => {
+                    if (color.name === currentColor.name) {
+                        resultP.textContent = 'To\'g\'ri!';
+                    } else {
+                        resultP.textContent = 'Noto\'g\'ri. Qaytadan urinib ko\'ring.';
+                    }
+                });
+                optionsDiv.appendChild(button);
+            });
+        }
+
+        document.getElementById('next-button').addEventListener('click', displayColor);
+
+        displayColor();
+    </script>
+</body>
+
+</html>

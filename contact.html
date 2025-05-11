@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biz bilan aloqa</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Kids Games</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Bosh sahifa</a></li>
+                    <li><a href="games.html">O'yinlar</a></li>
+                    <li><a href="about.html">Biz haqimizda</a></li>
+                    <li><a href="contact.html">Aloqa</a></li>
+                </ul>
+            </nav>
+        </div>
+
+
+
+        <div class="contact-form">
+            <h1>Biz bilan aloqa</h1>
+            <form id="contactForm">
+                <label for="name">Ismingiz:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email manzilingiz:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Xabaringiz:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+
+                <button type="submit">Xabar yuborish</button>
+            </form>
+        </div>
+
+        <script>
+            const form = document.getElementById('contactForm');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Formani haqiqiy yuborishni to'xtatadi
+                alert('Xabaringiz yuborildi!');
+                form.reset(); // Formani tozalaydi
+                window.location.href = 'index.html';
+
+            });
+        </script>
+
+</body>
+
+</html>
